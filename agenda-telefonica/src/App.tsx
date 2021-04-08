@@ -1,10 +1,15 @@
 import React from 'react';
+import { Container, Header } from './styles';
+import { Search } from '~/components';
+import './App.css';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <h1>Hello World</h1>
-    </div>
+    <Container>
+      <Header>
+        <Search />
+      </Header>
+    </Container>
   );
 }
 

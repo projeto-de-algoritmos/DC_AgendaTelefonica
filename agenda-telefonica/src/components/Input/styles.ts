@@ -9,7 +9,7 @@ interface ContainerProps {
 }
 
 export const Container = styled.div<ContainerProps>`
-  /* max-width: 294px; */
+  max-width: 294px;
   position: relative;
   width: 100%;
   height: 40px;
@@ -17,8 +17,7 @@ export const Container = styled.div<ContainerProps>`
   justify-content: center;
   align-items: center;
   border-radius: 7.4rem;
-  border: 2px solid #ff9a00;
-  margin-bottom: 20px;
+  border: 2px solid #009F8B;
 
   ${(props) =>
     props.isErrored &&
@@ -56,13 +55,14 @@ export const Container = styled.div<ContainerProps>`
     color: #000000;
     font-size: 1.6rem;
     padding: 5px 20px;
+    outline: none;
 
     ::placeholder {
       color: #000000;
       text-align: center;
-      font-family: 'Poppins';
-      font-weight: 700;
-      font-size: 1.6rem;
+      font-family: 'Ubuntu';
+      font-weight: 500;
+      font-size: 1.2rem;
     }
 
     /* &::placeholder {
