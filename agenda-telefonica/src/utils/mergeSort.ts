@@ -1,4 +1,5 @@
 import IContact from '~/interfaces/IContact';
+import binarySearch from './binarySearch';
 
 function merge(left: Array<IContact>, right: Array<IContact>, parameter: string): Array<IContact> {
   let arr: Array<IContact> = [];
@@ -34,27 +35,6 @@ function mergeSort(array: Array<IContact>, parameter: string): Array<IContact> {
   const left = array.splice(0, half);
   return merge(mergeSort(left, parameter), mergeSort(array, parameter), parameter);
 };
-
-
-
-
-
-
-const contacts: Array<IContact> = [
-  { name: 'Murilo', phone: '1' },
-  { name: 'Gabriel', phone: '2' },
-  { name: 'Eliseu', phone: '3' }
-];
-
-let contactsFinished = mergeSort(contacts, 'name');
-
-console.log(contactsFinished);
-
-contactsFinished = mergeSort(contactsFinished, 'phone');
-
-console.log(contactsFinished);
-
-
 
 
 export default mergeSort;
