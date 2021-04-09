@@ -17,7 +17,7 @@ const Search: React.FC = () => {
     <Container>
      <StyledForm onSubmit={handleSubmit} ref={searchRef}>
         <Input name="search"placeholder="Pesquisar contato" />
-        <Button><IoSearchOutline size={30}/></Button>
+        <Button onClick={() => searchRef.current?.submitForm()}><IoSearchOutline size={30}/></Button>
       </StyledForm>
     </Container>
   );
