@@ -34,7 +34,7 @@ export const BackdropContainer = styled.div<IBackdropContainer>`
 
 export const Container = styled.div<IAlignModal>`
   position: relative;
-  max-width: 65rem;
+  max-width: 50rem;
   width: 100%;
   min-height: 25%;
   height: auto;
