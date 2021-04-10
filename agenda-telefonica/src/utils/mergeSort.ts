@@ -1,5 +1,4 @@
 import IContact from '~/interfaces/IContact';
-import binarySearch from './binarySearch';
 
 function merge(left: Array<IContact>, right: Array<IContact>, parameter: string): Array<IContact> {
   let arr: Array<IContact> = [];

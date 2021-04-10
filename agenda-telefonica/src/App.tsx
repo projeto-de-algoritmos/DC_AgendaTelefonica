@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { Container, Header, Button, StyledForm } from './styles';
 import { Search, Modal, Input, InputMask, DropdownButton } from '~/components';
 import './App.css';
@@ -8,11 +8,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import * as Yup from 'yup';
 import { IoMdPersonAdd } from 'react-icons/io';
 import getValidationErrors from '~/validators/getValidationsErrors';
+import { mockContacts } from '~/utils/mockContacts';
+import mergeSort from '~/utils/mergeSort';
+import IContact from '~/interfaces/IContact';
 
 const App: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [searchName, setSearchName] = useState(true);
   const [searchNumber, setSearchNumber] = useState(false);
+  const [contacts, setContacts] = useState<IContact[]>();
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(
@@ -48,6 +52,11 @@ const App: React.FC = () => {
     [],
   );
 
+  useEffect(()=>{
+    const newContacts = mergeSort(mockContacts, searchName ? 'name' : 'phone')
+    setContacts(newContacts);
+  }, [searchNumber, searchName]);
+
   return (
     <>
       <ToastContainer />
@@ -64,6 +73,11 @@ const App: React.FC = () => {
             <IoMdPersonAdd size={30} />
           </Button>
         </Header>
+        <div>
+          {contacts?.map((contact)=>
+            <p key={contact.phone}>{`${contact.name} - ${contact.phone}`}</p>
+          )}
+        </div>
         <Modal
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
