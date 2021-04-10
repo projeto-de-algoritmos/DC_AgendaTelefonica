@@ -1,9 +1,8 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { Container, Header } from './styles';
+import { Container, Header, Button, StyledForm } from './styles';
 import { Search, Modal, Input, InputMask } from '~/components';
 import './App.css';
 import { FormHandles } from '@unform/core';
-import { Form } from '@unform/web';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Yup from 'yup';
@@ -52,20 +51,20 @@ const App: React.FC = () => {
       <Container>
         <Header>
           <Search />
-          <button>
-            <IoMdSettings />
-          </button>
-          <button>
-          <IoMdPersonAdd />
-          </button>
+          <Button style={{marginRight: 10}}>
+            <IoMdSettings size={30} />
+          </Button>
+          <Button onClick={()=>{setModalVisible(true)}}>
+          <IoMdPersonAdd size={30} />
+          </Button>
         </Header>
         <Modal
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
           btnClose={true}
         >
-          <h1>Cadastrar contato</h1>
-          <Form onSubmit={handleSubmit} ref={formRef}>
+          <StyledForm onSubmit={handleSubmit} ref={formRef}>
+            <h1>Cadastrar contato</h1>
             <Input name="nome" placeholder="Nome Completo" />
             <InputMask
               name="telefone"
@@ -73,7 +72,7 @@ const App: React.FC = () => {
               placeholder="Telefone"
             />
             <button onClick={() => formRef.current?.submitForm()}>Cadastrar</button>
-          </Form>
+          </StyledForm>
         </Modal>
       </Container>
     </>
