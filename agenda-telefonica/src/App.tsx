@@ -17,6 +17,7 @@ const App: React.FC = () => {
   const [searchName, setSearchName] = useState(true);
   const [searchNumber, setSearchNumber] = useState(false);
   const [contacts, setContacts] = useState<IContact[]>(mockContacts);
+  const [searchResult, setSearchResult] = useState<IContact>();
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(
@@ -62,7 +63,12 @@ const App: React.FC = () => {
       <ToastContainer />
       <Container>
         <Header>
-          <Search />
+          <Search
+            searchResult={searchResult}
+            setSearchResult={setSearchResult}
+            searchName={searchName}
+            contacts={contacts} 
+          />
           <DropdownButton 
             searchName={searchName} 
             setSearchName={setSearchName}
@@ -77,6 +83,9 @@ const App: React.FC = () => {
           {contacts?.map((contact)=>
             <p key={contact.phone}>{`${contact.name} - ${contact.phone}`}</p>
           )}
+        </div>
+        <div>
+          <p>{`${searchResult?.name} - ${searchResult?.phone}`}</p>
         </div>
         <Modal
           modalVisible={modalVisible}
