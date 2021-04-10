@@ -16,7 +16,7 @@ const App: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [searchName, setSearchName] = useState(true);
   const [searchNumber, setSearchNumber] = useState(false);
-  const [contacts, setContacts] = useState<IContact[]>();
+  const [contacts, setContacts] = useState<IContact[]>(mockContacts);
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(
@@ -53,7 +53,7 @@ const App: React.FC = () => {
   );
 
   useEffect(()=>{
-    const newContacts = mergeSort(mockContacts, searchName ? 'name' : 'phone')
+    const newContacts = mergeSort(contacts, searchName ? 'name' : 'phone')
     setContacts(newContacts);
   }, [searchNumber, searchName]);
 
