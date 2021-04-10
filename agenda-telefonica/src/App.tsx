@@ -1,16 +1,18 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { Container, Header, Button, StyledForm } from './styles';
-import { Search, Modal, Input, InputMask } from '~/components';
+import { Search, Modal, Input, InputMask, DropdownButton } from '~/components';
 import './App.css';
 import { FormHandles } from '@unform/core';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Yup from 'yup';
-import { IoMdPersonAdd, IoMdSettings } from 'react-icons/io';
+import { IoMdPersonAdd } from 'react-icons/io';
 import getValidationErrors from '~/validators/getValidationsErrors';
 
 const App: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [searchName, setSearchName] = useState(true);
+  const [searchNumber, setSearchNumber] = useState(false);
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(
@@ -28,6 +30,7 @@ const App: React.FC = () => {
         // console.log(data);
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
+          // console.log(error);
           const errors = getValidationErrors(error);
 
           Object.values(errors).forEach((value: string) => {
@@ -35,7 +38,7 @@ const App: React.FC = () => {
           });
 
           formRef.current?.setErrors(errors);
-          // console.log(errors);
+          console.log(errors);
         }
         if (error?.response?.status === 400) {
           toast.success('modelo de envio');
@@ -51,11 +54,14 @@ const App: React.FC = () => {
       <Container>
         <Header>
           <Search />
-          <Button style={{marginRight: 10}}>
-            <IoMdSettings size={30} />
-          </Button>
+          <DropdownButton 
+            searchName={searchName} 
+            setSearchName={setSearchName}
+            searchNumber={searchNumber} 
+            setSearchNumber={setSearchNumber} 
+          />
           <Button onClick={()=>{setModalVisible(true)}}>
-          <IoMdPersonAdd size={30} />
+            <IoMdPersonAdd size={30} />
           </Button>
         </Header>
         <Modal
