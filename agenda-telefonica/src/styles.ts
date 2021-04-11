@@ -81,3 +81,20 @@ export const StyledForm = styled(Form)`
     }
   }
 `;
+
+export const CardsContainer = styled.div`
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+`;
+
+export const CTitle = styled.h1`
+  font-family: 'Ubuntu';
+  font-size: 24px;
+  font-weight: 600;
+  color: #009F8B;
+`;

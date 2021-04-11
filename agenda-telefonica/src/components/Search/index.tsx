@@ -26,7 +26,12 @@ const Search: React.FC<IProps> = ({
     (data) => {
       const position = binarySearch(contacts, 0, contacts.length - 1,
         data.search, searchName ? 'name' : 'phone');
-      setSearchResult(contacts[position])
+      if(position>-1){
+        setSearchResult(contacts[position])
+      }
+      else{
+        setSearchResult({ name: 'Não encontrado', phone: 'Não encontrado'});
+      }
     }, [contacts, searchName]);
 
   return (

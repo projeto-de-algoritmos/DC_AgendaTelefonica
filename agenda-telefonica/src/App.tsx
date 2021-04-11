@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { Container, Header, Button, StyledForm } from './styles';
-import { Search, Modal, Input, InputMask, DropdownButton } from '~/components';
+import { Container, Header, Button, StyledForm,CardsContainer, CTitle } from './styles';
+import { Search, Modal, Input, InputMask, DropdownButton, UserCard } from '~/components';
 import './App.css';
 import { FormHandles } from '@unform/core';
 import { toast, ToastContainer } from 'react-toastify';
@@ -79,14 +79,22 @@ const App: React.FC = () => {
             <IoMdPersonAdd size={30} />
           </Button>
         </Header>
-        <div>
-          {contacts?.map((contact)=>
-            <p key={contact.phone}>{`${contact.name} - ${contact.phone}`}</p>
-          )}
-        </div>
-        <div>
-          <p>{`${searchResult?.name} - ${searchResult?.phone}`}</p>
-        </div>
+        <CardsContainer>
+          {!searchResult &&
+          <>
+            <CTitle>Seus contatos</CTitle>
+              {contacts?.map((contact)=>
+                <UserCard key={contact.phone} contact={contact}/>
+              )}
+          </>
+          }
+          {!!searchResult &&
+          <>
+            <CTitle>Sua busca</CTitle>
+            <UserCard key={searchResult.phone} contact={searchResult}/>
+          </>
+          }
+        </CardsContainer>
         <Modal
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
