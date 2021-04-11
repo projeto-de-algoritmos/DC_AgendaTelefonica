@@ -13,13 +13,18 @@
 Esse projeto é a implementação de uma agenda telefônica pessoal, como alguns aplicativos de celular, mas com o objetivo de implementar os algoritmos do paradigma de **Dividir e Conquistar**: **Merge Sort** e **Busca Binária**.
 
 ## Screenshots
-Adicione 3 ou mais screenshots do projeto em funcionamento.
+![Foto Ordenação por Nome](./img/por_nome.png) <br> <br>
+![Foto Ordenação por Telefone](./img/por_telefone.png) <br> <br>
+![Foto Busca](./img/pesquisa.png) <br> <br>
 
 ## Instalação 
 **Linguagem**: Typescript<br>
 **Framework**: React<br>
 
 ### Pré-requisitos
+
+**Obs:** Caso não queira instalar as dependências dessa máquina, o projeto está disponível em: https://dc-agenda-telefonica.vercel.app/
+
 Para rodar esse projeto é necessário ter instalado em sua máquina o gerenciador de pacotes **yarn**.<br>
 **P.S.: rodar esse projeto com npm pode não funcionar, por isso utilize o yarn.**
 
