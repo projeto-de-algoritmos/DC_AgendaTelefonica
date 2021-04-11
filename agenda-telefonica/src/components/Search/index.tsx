@@ -15,7 +15,6 @@ interface IProps {
 }
 
 const Search: React.FC<IProps> = ({
-  searchResult,
   setSearchResult,
   searchName,
   contacts
@@ -24,8 +23,13 @@ const Search: React.FC<IProps> = ({
 
   const handleSubmit = useCallback(
     (data) => {
+      if(contacts.length===0){
+        setSearchResult({ name: 'Não encontrado', phone: 'Não encontrado'});
+        return;
+      }
       const position = binarySearch(contacts, 0, contacts.length - 1,
         data.search, searchName ? 'name' : 'phone');
+
       if(position>-1){
         setSearchResult(contacts[position])
       }

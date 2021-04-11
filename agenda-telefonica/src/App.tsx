@@ -1,11 +1,8 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Header, Button, StyledForm, CardsContainer, CTitle } from './styles';
 import { Search, Modal, Input, InputMask, DropdownButton, UserCard } from '~/components';
 import './App.css';
-import { FormHandles } from '@unform/core';
-import * as Yup from 'yup';
 import { IoMdPersonAdd, IoMdTrash, IoIosArrowRoundBack } from 'react-icons/io';
-import getValidationErrors from '~/validators/getValidationsErrors';
 import mergeSort from '~/utils/mergeSort';
 import IContact from '~/interfaces/IContact';
 
@@ -15,48 +12,26 @@ const App: React.FC = () => {
   const [searchNumber, setSearchNumber] = useState(false);
   const [contacts, setContacts] = useState<IContact[]>([]);
   const [searchResult, setSearchResult] = useState<IContact>();
-  const formRef = useRef<FormHandles>(null);
 
-  const handleSubmit = useCallback(
-    async (data: IContact) => {
-      try {
-        const schema = Yup.object().shape({
-          name: Yup.string().required('Nome de contato obrigatório.'),
-          phone: Yup.string().required('Telefone obrigatório.'),
-        });
-
-        await schema.validate(data, {
-          abortEarly: false,
-        });
-        console.log(contacts);
+  const handleSubmit =
+    async (data: IContact, { reset }:any) => {
         const contactsArray = contacts;
+        console.log(contactsArray);
         const contact: IContact = {
           name: data.name,
           phone: data.phone,
         };
         contactsArray.push(contact);
-        console.log(contactsArray);
         const newContacts = mergeSort(contactsArray, searchName ? 'name' : 'phone');
         setContacts(newContacts);
         localStorage.setItem('contactsArray', JSON.stringify(newContacts));
-
-        console.log(data);
-      } catch (error) {
-        if (error instanceof Yup.ValidationError) {
-          // console.log(error);
-          const errors = getValidationErrors(error);
-
-          formRef.current?.setErrors(errors);
-          // console.log(errors);
-        }
-      }
-    },
-    [],
-  );
+        reset();
+        setModalVisible(false);
+    }
 
   useEffect(() => {
     const contactsArray: IContact[] = JSON.parse(localStorage.getItem('contactsArray') || '[]');
-    const newContacts = mergeSort(contactsArray, searchName ? 'name' : 'phone')
+    const newContacts = mergeSort(contactsArray, searchName ? 'name' : 'phone');
     setContacts(newContacts);
   }, [searchNumber, searchName]);
 
@@ -126,15 +101,16 @@ const App: React.FC = () => {
         setModalVisible={setModalVisible}
         btnClose={true}
       >
-        <StyledForm onSubmit={handleSubmit} ref={formRef}>
+        <StyledForm onSubmit={handleSubmit}>
           <h1>Cadastrar contato</h1>
-          <Input name="name" placeholder="Nome Completo" />
+          <Input name="name" placeholder="Nome Completo" required />
           <InputMask
             name="phone"
-            mask="(99) 9 9999-9999"
+            mask="99 9 9999 9999"
             placeholder="Telefone"
+            required
           />
-          <button onClick={() => formRef.current?.submitForm()}>Cadastrar</button>
+          <button type="submit">Cadastrar</button>
         </StyledForm>
       </Modal>
     </Container>
